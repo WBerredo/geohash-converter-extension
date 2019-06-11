@@ -14,6 +14,7 @@ class App extends React.Component {
 
     this.latitudeChanged = this.latitudeChanged.bind(this);
     this.longitudeChanged = this.longitudeChanged.bind(this);
+    this.hashChanged = this.hashChanged.bind(this);
   }
 
   latitudeChanged(event) {
@@ -30,6 +31,23 @@ class App extends React.Component {
     });
 
     this.calculateHash();
+  }
+
+  hashChanged(event) {
+    this.setState({
+      hash: event.target.value,
+    });
+
+    this.calculateCoordinates();
+  }
+
+  calculateCoordinates() {
+    const { hash } = this.state;
+
+    if (hash) {
+      const { latitude, longitude } = geohash.decode(hash);
+      this.setState({ latitude, longitude });
+    }
   }
 
   calculateHash() {
@@ -72,7 +90,16 @@ class App extends React.Component {
             />
           </label>
 
-          <label>Geohash: {state.hash}</label>
+          <label>
+            Geohash
+            <input
+              type="text"
+              placeholder="Geohash"
+              aria-describedby="Geohash"
+              value={state.hash}
+              onChange={this.hashChanged}
+            />
+          </label>
         </form>
       </div>
     );
