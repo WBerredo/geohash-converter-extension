@@ -10,35 +10,51 @@ class App extends React.Component {
       latitude: '',
       longitude: '',
       hash: '',
+      iframeUrl: '',
     };
 
     this.latitudeChanged = this.latitudeChanged.bind(this);
     this.longitudeChanged = this.longitudeChanged.bind(this);
     this.hashChanged = this.hashChanged.bind(this);
+    this.updateIframeUrl = this.updateIframeUrl.bind(this);
+  }
+
+  updateIframeUrl() {
+    const baseUrl = 'http://m.osmtools.de/?lon=LONGITUDE&lat=LATITUDE&zoom=7&mlon=LONGITUDE&mlat=LATITUDE&icon=4&iframe=1';
+    const { latitude, longitude } = this.state;
+
+    const newUrl = baseUrl
+      .replace(/LATITUDE/g, latitude)
+      .replace(/LONGITUDE/g, longitude);
+
+    this.setState({ iframeUrl: newUrl });
   }
 
   latitudeChanged(event) {
     this.setState({
       latitude: event.target.value,
+    }, () => {
+      this.calculateHash();
+      this.updateIframeUrl();
     });
-
-    this.calculateHash();
   }
 
   longitudeChanged(event) {
     this.setState({
       longitude: event.target.value,
+    }, () => {
+      this.calculateHash();
+      this.updateIframeUrl();
     });
-
-    this.calculateHash();
   }
 
   hashChanged(event) {
     this.setState({
       hash: event.target.value,
+    }, () => {
+      this.calculateCoordinates();
+      this.updateIframeUrl();
     });
-
-    this.calculateCoordinates();
   }
 
   calculateCoordinates() {
@@ -101,6 +117,20 @@ class App extends React.Component {
             />
           </label>
         </form>
+
+        <br/>
+        <iframe
+          width="350"
+          height="250"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight="0"
+          marginWidth="0"
+          src={state.iframeUrl}
+          style={{ border: '1px solid black' }}
+          title="map"
+        />
+        <br/>
       </div>
     );
   }
