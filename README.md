@@ -31,6 +31,7 @@ PS: In both options the map will show the place where the coordinates are placed
   * [Create React App](https://github.com/facebook/create-react-app)
   * [Geohash Converter Website](http://geohash.co/)
   * [Freepik](https://www.freepik.com/?__hstc=57440181.7e77997cccd2700b82ae160b8417ffaf.1560272477995.1560272477995.1560353252453.2&__hssc=57440181.1.1560353252453&__hsfp=2825435680)
+  * [Open Street Map](https://www.openstreetmap.org/)
 
 ## License
 
