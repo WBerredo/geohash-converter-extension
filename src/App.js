@@ -7,9 +7,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      latitude: '',
-      longitude: '',
-      hash: '',
+      latitude: this.getLocalStorageKey('latitude') || '',
+      longitude: this.getLocalStorageKey('longitude') || '',
+      hash: this.getLocalStorageKey('hash') || '',
       iframeUrl: '',
     };
 
@@ -17,6 +17,25 @@ class App extends React.Component {
     this.longitudeChanged = this.longitudeChanged.bind(this);
     this.hashChanged = this.hashChanged.bind(this);
     this.updateIframeUrl = this.updateIframeUrl.bind(this);
+
+    setTimeout(() => this.updateIframeUrl());
+  }
+
+  setLocalStorageKey(key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  getLocalStorageKey(key) {
+    const value = window.localStorage.getItem(key);
+    return value && JSON.parse(value);
+  }
+
+  updateLocalStorageFields() {
+    const { latitude, longitude, hash } = this.state;
+
+    this.setLocalStorageKey('latitude', latitude);
+    this.setLocalStorageKey('longitude', longitude);
+    this.setLocalStorageKey('hash', hash);
   }
 
   updateIframeUrl() {
@@ -36,6 +55,7 @@ class App extends React.Component {
     }, () => {
       this.calculateHash();
       this.updateIframeUrl();
+      this.updateLocalStorageFields();
     });
   }
 
@@ -45,6 +65,7 @@ class App extends React.Component {
     }, () => {
       this.calculateHash();
       this.updateIframeUrl();
+      this.updateLocalStorageFields();
     });
   }
 
@@ -54,6 +75,7 @@ class App extends React.Component {
     }, () => {
       this.calculateCoordinates();
       this.updateIframeUrl();
+      this.updateLocalStorageFields();
     });
   }
 
