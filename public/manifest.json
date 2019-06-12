@@ -1,10 +1,10 @@
 {
   "short_name": "geohashconverter",
-  "name": "GeoHash Converter",
+  "name": "Geohash Converter",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "index.html",
-    "default_title": "GeoHash Converter"
+    "default_title": "Geohash Converter"
   },
   "permissions": [
     "activeTab"
