@@ -11,7 +11,7 @@ If you want to download the zipped package from GitHub, follow the steps below:
 - On your Chrome Web Browser, Open (chrome://extensions/) or select the menu `Window > Extensions`.
 - Enable developer mode at the top right.
 - Click `Load unpacked extension...` and select the source code folder.
-- Generate your headers.
+- Use it!
 
 ## Usage
 To use this converter you have 2 options:
